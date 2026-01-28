@@ -2,7 +2,7 @@ function generateNewEquation () {
     answerinput = 0
     basic.clearScreen()
     num1 = randint(1, 8)
-    num2 = randint(1, 9 - num1)
+    num2 = randint(1, 17 - num1)
     answerstored = num1 + num2
     basic.showNumber(num1)
     basic.pause(500)
@@ -52,23 +52,23 @@ function checkvoice () {
         answerinput = 17
     }
 }
+let answerstored = 0
 let num2 = 0
 let num1 = 0
-let answerstored = 0
 let answerinput = 0
 voiceRecognition.init()
 voiceRecognition.setVolume(5)
 voiceRecognition.playByCMDID(voiceRecognition.checkWord1(voiceRecognition.WakeupWords.W2))
 voiceRecognition.setWakeTime(30)
 basic.showIcon(IconNames.Yes)
-answerinput = 0
-answerstored = 1
 basic.forever(function () {
     voiceRecognition.getCMDID()
     if (voiceRecognition.checkCMDID()) {
         checkvoice()
-    }
-    if (answerinput == answerstored) {
-        basic.showIcon(IconNames.Happy)
+        if (answerinput == answerstored) {
+            basic.showIcon(IconNames.Happy)
+        } else {
+            basic.showIcon(IconNames.No)
+        }
     }
 })
