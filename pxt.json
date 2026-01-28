@@ -1,5 +1,6 @@
 {
     "name": "voice_experiment",
+    "version": "0.0.1",
     "description": "",
     "dependencies": {
         "core": "*",
