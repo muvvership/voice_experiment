@@ -1,9 +1,47 @@
-function generateNewEquation () {
+function generateNewEquation() {
+    
     answerinput = 0
-    basic.clearScreen()
-    num1 = randint(1, 8)
-    num2 = randint(1, 17 - num1)
+    num1 = randint(1, 6)
+    num2 = randint(1, 12 - num1)
     answerstored = num1 + num2
+}
+
+input.onButtonPressed(Button.A, function on_button_pressed_a() {
+    generateNewEquation()
+    displayEquation()
+})
+function checkvoice() {
+    
+    if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W5)) {
+        answerinput = 1
+    } else if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W6)) {
+        answerinput = 2
+    } else if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W7)) {
+        answerinput = 3
+    } else if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W8)) {
+        answerinput = 4
+    } else if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W9)) {
+        answerinput = 5
+    } else if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W10)) {
+        answerinput = 6
+    } else if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W11)) {
+        answerinput = 7
+    } else if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W12)) {
+        answerinput = 8
+    } else if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W13)) {
+        answerinput = 9
+    } else if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W14)) {
+        answerinput = 10
+    } else if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W15)) {
+        answerinput = 11
+    } else if (cmd == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W16)) {
+        answerinput = 12
+    }
+    
+}
+
+function displayEquation() {
+    basic.clearScreen()
     basic.showNumber(num1)
     basic.pause(500)
     basic.showString("+")
@@ -12,63 +50,84 @@ function generateNewEquation () {
     basic.pause(500)
     basic.showString("=")
 }
-input.onButtonPressed(Button.A, function () {
-    generateNewEquation()
-})
-function checkvoice () {
-    if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W5)) {
-        answerinput = 1
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W6)) {
-        answerinput = 2
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W7)) {
-        answerinput = 3
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W8)) {
-        answerinput = 4
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W9)) {
-        answerinput = 5
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W10)) {
-        answerinput = 6
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W11)) {
-        answerinput = 7
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W12)) {
-        answerinput = 8
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W13)) {
-        answerinput = 9
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W14)) {
-        answerinput = 10
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W15)) {
-        answerinput = 11
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W16)) {
-        answerinput = 12
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W17)) {
-        answerinput = 13
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W18)) {
-        answerinput = 14
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W19)) {
-        answerinput = 15
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W20)) {
-        answerinput = 16
-    } else if (voiceRecognition.readCMDID() == voiceRecognition.checkWord2(voiceRecognition.LearningCommandWords.W21)) {
-        answerinput = 17
-    }
-}
+
+let lastcmd = 0
+let cmd = 0
 let answerstored = 0
 let num2 = 0
 let num1 = 0
 let answerinput = 0
 voiceRecognition.init()
-voiceRecognition.setVolume(5)
+voiceRecognition.setVolume(30)
 voiceRecognition.playByCMDID(voiceRecognition.checkWord1(voiceRecognition.WakeupWords.W2))
-voiceRecognition.setWakeTime(30)
+voiceRecognition.setWakeTime(255)
 basic.showIcon(IconNames.Yes)
-basic.forever(function () {
+basic.forever(function on_forever() {
+    
     voiceRecognition.getCMDID()
     if (voiceRecognition.checkCMDID()) {
-        checkvoice()
-        if (answerinput == answerstored) {
-            basic.showIcon(IconNames.Happy)
-        } else {
-            basic.showIcon(IconNames.No)
+        cmd = voiceRecognition.readCMDID()
+        if (cmd != lastcmd && cmd != 0) {
+            lastcmd = cmd
+            if (cmd == 128) {
+                basic.showIcon(IconNames.Fabulous)
+            } else if (cmd == 22) {
+                generateNewEquation()
+                displayEquation()
+            } else if (cmd == 72) {
+                basic.showArrow(ArrowNames.North)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.NorthEast)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.East)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.SouthEast)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.South)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.SouthWest)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.West)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.NorthWest)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.North)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.NorthEast)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.East)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.SouthEast)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.South)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.SouthWest)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.West)
+                basic.pause(80)
+                basic.showArrow(ArrowNames.NorthWest)
+                basic.pause(80)
+                basic.showIcon(IconNames.Confused)
+            } else {
+                checkvoice()
+                if (answerinput != 0) {
+                    basic.showNumber(answerinput)
+                    basic.pause(800)
+                    if (answerinput == answerstored) {
+                        basic.showIcon(IconNames.Happy)
+                    } else {
+                        basic.showIcon(IconNames.No)
+                    }
+                    
+                    answerinput = 0
+                }
+                
+            }
+            
         }
+        
+    } else {
+        lastcmd = 0
     }
+    
 })
